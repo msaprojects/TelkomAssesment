@@ -29,43 +29,39 @@ then
             case $prefix2 in
                 # -t prefix for convert
                 -t)
-                        if [ $prefix3 == 'json' ];
+                    if [ $prefix3 == 'json' ];
+                    then
+                        if [ $prefix4 == '-o' ];
                         then
-                            if [ $prefix4 == '-o' ] && [ $prefix5 != ''];
+                            if  && [ $prefix5 != ''];
                             then
                                 cp $prefix1 $prefix5.txt
                                 echo "xxx3"
-                            else
-                                cp $prefix1 /var/log/logassesment1.json
-                                echo "xxx1"
                             fi
-                        elif [ "$prefix3" == 'text' ];
-                        then
-                            cp $prefix1 testlog/logassesment2.txt
-                            echo "xxx2"
                         else
-                            cp $prefix1 testlog/logassesment3.txt
-                            echo "xxx4"
+                            cp $prefix1 /var/log/logassesment1.json
+                            echo "xxx1"
                         fi
-                        echo "Data berhasil dipindahkan ke /var/log/"
-                        ;;
+                    elif [ $prefix3 == 'text' ];
+                    then
+                        cp $prefix1 testlog/logassesment2.txt
+                        echo "xxx2"
+                    else
+                        cp $prefix1 testlog/logassesment3.txt
+                        echo "xxx4"
+                    fi
+                    echo "Data berhasil dipindahkan ke /var/log/"
+                    ;;
                 # -o prefix for customized location 
                 -o)
-                        if [ "$prefix3" == 'json' ] && [ "${prefix4}" == '-o' ] && [ "$prefix5" != '' ];
-                        then
-                            cp $prefix1 $prefix5.json
-                            echo "xxx5"
-                        else
-                            cp $prefix1 $prefix3.txt
-                            echo "xxx16"
-                        fi
-                        echo "data berhasil dipindah ke $prefix3"
+                    cp $prefix1 $prefix3.txt
+                    echo "xxx6"
                         ;;
                 # for setting default prefix
                 *)
-                        cp $prefix1 /var/log/logassesment4.txt
-                        echo 'Data berhasil dipindah ke /var/log/'
-                        ;;
+                    cp $prefix1 /var/log/logassesment4.txt
+                    echo 'Data berhasil dipindah ke /var/log/'
+                    ;;
             esac
             ;;
     esac
