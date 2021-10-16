@@ -8,64 +8,57 @@ prefix3="$3"
 prefix4="$4"
 prefix5="$5"
 
-# checking prefix, if prefix not empty will be execute command inside if
 if [ "$prefix1" != '' ];
 then
     case $prefix1 in
-        # store available prefix command 
         -h)
-            # output for help
             echo "##### Guide command #####"
             echo " [ -h ] : untuh daftar perintah tersedia."
             echo " [ mytools lokasilog -t json ] : command untuk memindahkan file log ke folder /var/log dengan format JSON"
             echo " [ mytools lokasilog -t text ] : command untuk memindahkan file log ke folder /var/log dengan format TEXT"
             echo " [ mytools lokasilog/log.log -o lokasibaru/log.json ] : command untuk memindahkan file log ke folder yang anda pilih dengan format JSON"
-            echo " [ mytools lokasilog/log.log -o lokasibaru/log.txt ]  : command untuk memindahkan file log ke folder yang anda pilih dengan format JSON"
+            echo " [ mytools lokasilog/log.log -o lokasibaru/log.txt ]  : command untuk memindahkan file log ke folder yang anda pilih dengan format TEXT"
             echo " [ mytools lokasilog/log.log -t text -o lokasibaru/log.txt ]  : command untuk memindahkan file log ke folder yang anda pilih dengan format TEXT"
-            echo " [ mytools lokasilog/log.log -t json -o lokasibaru/log.txt ]  : command untuk memindahkan file log ke folder yang anda pilih dengan format TEXT"
+            echo " [ mytools lokasilog/log.log -t json -o lokasibaru/log.txt ]  : command untuk memindahkan file log ke folder yang anda pilih dengan format JSON"
             ;;
         *)
-            # checking prefix -t, -o or null
             case $prefix2 in
-                # -t prefix for convert
                 -t)
-                    if [ $prefix3 == 'json' ];
-                    then
-                        if [ $prefix4 == '-o' ];
+                        if [ $prefix3 == 'json' ];
                         then
-                            if  && [ $prefix5 != ''];
+                            if [ $prefix4 == '-o' ];
                             then
-                                cp $prefix1 $prefix5.txt
-                                echo "xxx3"
+                                if [ $prefix5 != '' ]
+                                then
+                                        cp $prefix1 $prefix5.txt
+                                        echo "xxx3"
+                                fi
+                            else
+                                cp $prefix1 var/log/logassesment1.json
+                                echo "xxx1"
                             fi
+                        elif [ "$prefix3" == 'text' ];
+                        then
+                            cp $prefix1 var/log/logassesment2.txt
+                            echo "xxx2"
                         else
-                            cp $prefix1 /var/log/logassesment1.json
-                            echo "xxx1"
+                            cp $prefix1 var/log/logassesment3.txt
+                            echo "xxx4"
                         fi
-                    elif [ $prefix3 == 'text' ];
-                    then
-                        cp $prefix1 testlog/logassesment2.txt
-                        echo "xxx2"
-                    else
-                        cp $prefix1 testlog/logassesment3.txt
-                        echo "xxx4"
-                    fi
-                    echo "Data berhasil dipindahkan ke /var/log/"
-                    ;;
-                # -o prefix for customized location 
-                -o)
-                    cp $prefix1 $prefix3.txt
-                    echo "xxx6"
+                        echo "Data berhasil dipindahkan"
                         ;;
-                # for setting default prefix
+                -o)
+                        cp $prefix1 $prefix3.txt
+                        echo "xxx6"
+                        echo "data berhasil dipindah ke $prefix3"
+                        ;;
                 *)
-                    cp $prefix1 /var/log/logassesment4.txt
-                    echo 'Data berhasil dipindah ke /var/log/'
-                    ;;
+                        cp $prefix1 var/log/logassesment4.txt
+                        echo 'Data berhasil dipindah'
+                        ;;
             esac
             ;;
     esac
-# result when prefix empty/null
 else
     echo "perintah yang kamu masukkan tidak sesuai. -h untuk melihat perintah yang tersedia."
 fi
